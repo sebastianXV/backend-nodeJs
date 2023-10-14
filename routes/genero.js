@@ -4,7 +4,8 @@ const {
     getAllGeneros,
     getGeneroById,
     updateGenero,
-    deleteGenero
+    deleteGenero,
+    getGeneroByEstado
 } = require('../controllers/genero');
 
 const router = Router();
@@ -19,10 +20,19 @@ router.post('/', createGenero);
  */
 router.get('/', getAllGeneros);
 
+
+/**
+ * Consultar un género por su Estado
+ */
+router.get('/:estado', getGeneroByEstado);
+
+
 /**
  * Consultar un género por su ID
  */
 router.get('/:id', getGeneroById);
+
+
 
 /**
  * Actualizar un género

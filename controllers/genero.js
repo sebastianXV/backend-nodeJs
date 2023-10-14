@@ -11,7 +11,7 @@ const createGenero = async (req = request, res = response) => {
         if (generoDB) {
             return res.status(400).json({ msj: 'Ya existe un género con ese nombre' });
         }
-        
+
         const genero = new Genero({ nombre, descripcion });
         await genero.save();
 
@@ -53,6 +53,21 @@ const getGeneroById = async (req = request, res = response) => {
 };
 
 /**
+ * Consultar un género por su Estado
+ */
+const getGeneroByEstado = async (req = request, res = response) => {
+    try {
+        const { estado } = req.query;
+        const generos = await Genero.find({ estado });
+
+        return res.json(generos);
+    } catch (error) {
+        console.error('Error al obtener el género:', error);
+        return res.status(500).json({ msj: 'Error interno del servidor' });
+    }
+};
+
+/**
  * Actualizar un género
  */
 const updateGenero = async (req = request, res = response) => {
@@ -87,10 +102,12 @@ const deleteGenero = async (req = request, res = response) => {
     }
 };
 
+
 module.exports = {
     createGenero,
     getAllGeneros,
     getGeneroById,
+    getGeneroByEstado,
     updateGenero,
     deleteGenero
 };
